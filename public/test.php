@@ -30,5 +30,6 @@ if (extension_loaded('Zend OPcache')) {
     echo "<p>❌ OPcache extension is not loaded</p>";
 }
 
-echo "<hr><p>Server hostname: " . $_SERVER['HTTP_HOST']  . " [".$_SERVER['SERVER_ADDR'] ."]</p>";
+echo "<hr><p>Server hostname: " . gethostname() . "</p>";
+echo "<p>Server IP: " . $_SERVER['SERVER_ADDR'] . "</p>";
 ?>

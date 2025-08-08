@@ -53,5 +53,6 @@ if (!isset($_SESSION['visit_count'])) {
 }
 echo "<p>Visit count (stored in Redis): " . $_SESSION['visit_count'] . "</p>";
 
-echo "<hr><p>Server hostname: " . $_SERVER['HTTP_HOST']  . " [".$_SERVER['SERVER_ADDR'] ."]</p>";
+echo "<hr><p>Server hostname: " . $_SERVER['HTTP_HOST']  . " [".gethostname() ."]</p>";
+
 ?>
