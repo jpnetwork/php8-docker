@@ -1,0 +1,138 @@
+name: Deploy PHP 8.4 Docker to Production VMs
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-to-vm1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to VM1 via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.VM1_PORT || '22' }}
+        script: |
+          set -e
+          mkdir -p /home/sujane/php8-docker
+          cd /home/sujane/php8-docker
+          
+          # Fix git ownership and permission issues
+          sudo chown -R $(whoami):$(whoami) /home/sujane/php8-docker 2>/dev/null || true
+          git config --global --add safe.directory /home/sujane/php8-docker
+          git config --global --add safe.directory '*'
+          
+          if [ -d ".git" ]; then
+            git fetch --all
+            git reset --hard origin/main
+          else
+            git clone git@github.com:jpnetwork/php8-docker.git .
+            git config --global --add safe.directory /home/sujane/php8-docker
+          fi
+          
+          # Stop and remove existing containers
+          docker compose down || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
+          
+          # Build and start the application
+          docker compose up -d --build
+          echo "■ Waiting for app to start..."
+          sleep 10
+          
+          # Test application on port 9000
+          curl -f http://localhost:9000 || (echo "■ Application test failed on VM1, checking logs..." && docker compose logs && exit 1)
+          echo "■ VM1 deployment successful!"
+
+  deploy-to-vm2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to VM2 via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.VM2_PORT || '22' }}
+        script: |
+          set -e
+          mkdir -p /home/sujane/php8-docker
+          cd /home/sujane/php8-docker
+          
+          # Fix git ownership and permission issues
+          sudo chown -R $(whoami):$(whoami) /home/sujane/php8-docker 2>/dev/null || true
+          git config --global --add safe.directory /home/sujane/php8-docker
+          git config --global --add safe.directory '*'
+          
+          if [ -d ".git" ]; then
+            git fetch --all
+            git reset --hard origin/main
+          else
+            git clone git@github.com:jpnetwork/php8-docker.git .
+            git config --global --add safe.directory /home/sujane/php8-docker
+          fi
+          
+          # Stop and remove existing containers
+          docker compose down || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
+          
+          # Build and start the application
+          docker compose up -d --build
+          echo "■ Waiting for app to start..."
+          sleep 10
+          
+          # Test application on port 9000
+          curl -f http://localhost:9000 || (echo "■ Application test failed on VM2, checking logs..." && docker compose logs && exit 1)
+          echo "■ VM2 deployment successful!"
+
+  deploy-to-vm3:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to VM3 via SSH
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: ${{ secrets.VM3_PORT || '22' }}
+        script: |
+          set -e
+          mkdir -p /home/sujane/php8-docker
+          cd /home/sujane/php8-docker
+          
+          # Fix git ownership and permission issues
+          sudo chown -R $(whoami):$(whoami) /home/sujane/php8-docker 2>/dev/null || true
+          git config --global --add safe.directory /home/sujane/php8-docker
+          git config --global --add safe.directory '*'
+          
+          if [ -d ".git" ]; then
+            git fetch --all
+            git reset --hard origin/main
+          else
+            git clone git@github.com:jpnetwork/php8-docker.git .
+            git config --global --add safe.directory /home/sujane/php8-docker
+          fi
+          
+          # Stop and remove existing containers
+          docker compose down || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
+          
+          # Build and start the application
+          docker compose up -d --build
+          echo "■ Waiting for app to start..."
+          sleep 10
+          
+          # Test application on port 9000
+          curl -f http://localhost:9000 || (echo "■ Application test failed on VM3, checking logs..." && docker compose logs && exit 1)
+          echo "■ VM3 deployment successful!"
