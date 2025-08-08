@@ -1,0 +1,17 @@
+services:
+  php8-nginx:
+    build: .
+    container_name: php8-nginx-app
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./public:/var/www/html
+    restart: unless-stopped
+    environment:
+      - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d
+    networks:
+      - php8-network
+
+networks:
+  php8-network:
+    driver: bridge
