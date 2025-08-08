@@ -6,8 +6,17 @@ on:
 
 jobs:
   deploy-to-vm1:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-          # Stop and remove existing containers
+          docker compose down || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
+          
+          # Build and start the application
+          docker compose up -d --build
+          echo "■ Waiting for app to start..."
+          sleep 10
+          
+          # Test application on port 9000
+          curl -f http://localhost:9000 || (echo "■ Application test failed on VM3, checking logs..." && docker compose logs && exit 1)steps:
     - name: Checkout code
       uses: actions/checkout@v4
       
@@ -37,16 +46,16 @@ jobs:
           fi
           
           # Stop and remove existing containers
-          docker-compose down || true
+          docker compose down || true
           docker rm -f php8-nginx-app 2>/dev/null || true
           
           # Build and start the application
-          docker-compose up -d --build
+          docker compose up -d --build
           echo "■ Waiting for app to start..."
           sleep 10
           
           # Test application on port 9000
-          curl -f http://localhost:9000 || (echo "■ Application test failed on VM1, checking logs..." && docker-compose logs && exit 1)
+          curl -f http://localhost:9000 || (echo "■ Application test failed on VM1, checking logs..." && docker compose logs && exit 1)
           echo "■ VM1 deployment successful!"
 
   deploy-to-vm2:
@@ -81,16 +90,16 @@ jobs:
           fi
           
           # Stop and remove existing containers
-          docker-compose down || true
+          docker compose down || true
           docker rm -f php8-nginx-app 2>/dev/null || true
           
           # Build and start the application
-          docker-compose up -d --build
+          docker compose up -d --build
           echo "■ Waiting for app to start..."
           sleep 10
           
           # Test application on port 9000
-          curl -f http://localhost:9000 || (echo "■ Application test failed on VM2, checking logs..." && docker-compose logs && exit 1)
+          curl -f http://localhost:9000 || (echo "■ Application test failed on VM2, checking logs..." && docker compose logs && exit 1)
           echo "■ VM2 deployment successful!"
 
   deploy-to-vm3:
