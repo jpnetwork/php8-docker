@@ -21,6 +21,7 @@ RUN docker-php-ext-install \
 RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory.ini
 RUN echo "opcache.enable=1" > /usr/local/etc/php/conf.d/opcache.ini
 RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/opcache.ini
+RUN echo "date.timezone=Asia/Bangkok" > /usr/local/etc/php/conf.d/timezone.ini
 
 # Create web directory
 RUN mkdir -p /var/www/html

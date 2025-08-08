@@ -3,6 +3,7 @@ echo "<h1>Hello World!</h1>";
 echo "<p>This is a pure PHP 8.4 application running on Nginx port 9000</p>";
 echo "<p>Current PHP version: " . PHP_VERSION . "</p>";
 echo "<p>Current time: " . date('Y-m-d H:i:s') . "</p>";
+echo "<p>Timezone: " . date_default_timezone_get() . "</p>";
 
 // Test database connection (optional)
 if (extension_loaded('mysqli')) {
@@ -29,5 +30,5 @@ if (extension_loaded('Zend OPcache')) {
     echo "<p>❌ OPcache extension is not loaded</p>";
 }
 
-echo "<hr><p>Server hostname: " . gethostname() . "</p>";
+echo "<hr><p>Server hostname: " . $_SERVER['HTTP_HOST']  . " [".$_SERVER['SERVER_ADDR'] ."]</p>";
 ?>
