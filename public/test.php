@@ -28,4 +28,6 @@ if (extension_loaded('Zend OPcache')) {
 } else {
     echo "<p>❌ OPcache extension is not loaded</p>";
 }
+
+echo "<hr><p>Server hostname: " . gethostname() . "</p>";
 ?>
