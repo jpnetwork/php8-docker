@@ -25,9 +25,19 @@ RUN apk add --no-cache $PHPIZE_DEPS \
 
 # Configure PHP
 RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory.ini
-RUN echo "opcache.enable=1" > /usr/local/etc/php/conf.d/opcache.ini
-RUN echo "opcache.enable_cli=1" >> /usr/local/etc/php/conf.d/opcache.ini
 RUN echo "date.timezone=Asia/Bangkok" > /usr/local/etc/php/conf.d/timezone.ini
+
+# Opcache tuning
+RUN { \
+  echo "opcache.enable=1"; \
+  echo "opcache.enable_cli=1"; \
+  echo "opcache.memory_consumption=256"; \
+  echo "opcache.interned_strings_buffer=16"; \
+  echo "opcache.max_accelerated_files=20000"; \
+  echo "opcache.validate_timestamps=0"; \
+  echo "opcache.save_comments=1"; \
+  echo "opcache.fast_shutdown=1"; \
+} > /usr/local/etc/php/conf.d/opcache.ini
 
 # Configure Redis sessions
 RUN echo "session.save_handler=redis" > /usr/local/etc/php/conf.d/redis-session.ini
