@@ -31,7 +31,7 @@ RUN echo "date.timezone=Asia/Bangkok" > /usr/local/etc/php/conf.d/timezone.ini
 
 # Configure Redis sessions
 RUN echo "session.save_handler=redis" > /usr/local/etc/php/conf.d/redis-session.ini
-RUN echo "session.save_path=\"tcp://php84@192.168.99.7:6379\"" >> /usr/local/etc/php/conf.d/redis-session.ini
+RUN echo "session.save_path=\"tcp://192.168.99.7:6379\"" >> /usr/local/etc/php/conf.d/redis-session.ini
 
 # Create web directory
 RUN mkdir -p /var/www/html

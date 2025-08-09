@@ -32,11 +32,7 @@ if (extension_loaded('redis')) {
         $redis->pconnect('192.168.99.7', 6379, 1.5);
 
         // ถ้า Redis ACL ใช้ username/password แทนแค่ password
-        // ต้องใช้ authenticate แบบ Redis 6 ACL ดังนี้:
-        if (!$redis->auth('php84')) {
-            throw new Exception('Redis auth failed');
-        }
-
+        
         $ping = $redis->ping();
         $time = round((microtime(true) - $start) * 1000, 2);
 
