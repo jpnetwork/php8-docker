@@ -1,31 +1,17 @@
-version: '3.8'
-
 services:
-  nginx:
-    build: ./nginx
-    container_name: php8-nginx
+  php8-nginx:
+    build: .
+    container_name: php8-nginx-app
     ports:
-      - "9000:80"
-    depends_on:
-      - php-fpm
-    volumes:
-      - ./public:/var/www/html:ro
-    networks:
-      - app-network
-    restart: unless-stopped
-
-  php-fpm:
-    build: ./php-fpm
-    container_name: php8-fpm
+      - "9000:9000"
     volumes:
       - ./public:/var/www/html
-    networks:
-      - app-network
-    environment:
-      - REDIS_HOST=192.168.99.7
-      - REDIS_PORT=6379
     restart: unless-stopped
+    environment:
+      - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d
+    networks:
+      - php8-network
 
 networks:
-  app-network:
+  php8-network:
     driver: bridge

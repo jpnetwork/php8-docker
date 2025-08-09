@@ -1,36 +1,13 @@
-# PHP 8.4 Multi-Container Docker Setup
+# PHP 8.4 Docker with Nginx
 
-This project has been restructured to use separate containers for better scalability and maintainability.
-
-## Architecture
-
-- **Nginx Container**: Handles HTTP requests and serves static files
-- **PHP-FPM Container**: Processes PHP code and handles application logic
-- **Redis**: External Redis server for session storage (192.168.99.7:6379)
-
-## Project Structure
-
-```
-php8.4-docker/
-├── nginx/
-│   ├── Dockerfile
-│   └── nginx.conf
-├── php-fpm/
-│   ├── Dockerfile
-│   └── php-fpm.conf
-├── public/
-│   ├── index.php
-│   └── test-redis.php
-├── docker-compose.yml
-└── .github/workflows/deploy.yml
-```
+A simple PHP 8.4 application running with Nginx on port 9000.
 
 ## Features
 
-- **Separate Nginx and PHP-FPM containers**
-- **PHP 8.4 FPM with Redis extension**
-- **External Redis session storage**
-- **Optimized Nginx configuration**
+- PHP 8.4 FPM
+- Nginx web server
+- Supervisor for process management
+- OPcache enabled
 - MySQLi and PDO extensions
 - Security headers configured
 

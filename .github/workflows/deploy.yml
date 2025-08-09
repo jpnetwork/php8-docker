@@ -38,12 +38,12 @@ jobs:
           
           # Stop and remove existing containers
           docker compose down || true
-          docker rm -f php8-nginx php8-fpm php8-nginx-app 2>/dev/null || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
           
           # Build and start the application
           docker compose up -d --build
           echo "■ Waiting for app to start..."
-          sleep 15
+          sleep 10
           
           # Test application on port 9000
           curl -f http://localhost:9000 || (echo "■ Application test failed on VM1, checking logs..." && docker compose logs && exit 1)
@@ -82,12 +82,12 @@ jobs:
           
           # Stop and remove existing containers
           docker compose down || true
-          docker rm -f php8-nginx php8-fpm php8-nginx-app 2>/dev/null || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
           
           # Build and start the application
           docker compose up -d --build
           echo "■ Waiting for app to start..."
-          sleep 15
+          sleep 10
           
           # Test application on port 9000
           curl -f http://localhost:9000 || (echo "■ Application test failed on VM2, checking logs..." && docker compose logs && exit 1)
@@ -126,12 +126,12 @@ jobs:
           
           # Stop and remove existing containers
           docker compose down || true
-          docker rm -f php8-nginx php8-fpm php8-nginx-app 2>/dev/null || true
+          docker rm -f php8-nginx-app 2>/dev/null || true
           
           # Build and start the application
           docker compose up -d --build
           echo "■ Waiting for app to start..."
-          sleep 15
+          sleep 10
           
           # Test application on port 9000
           curl -f http://localhost:9000 || (echo "■ Application test failed on VM3, checking logs..." && docker compose logs && exit 1)
