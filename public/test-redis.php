@@ -23,6 +23,28 @@ if (extension_loaded('pdo')) {
 // Test Redis extension
 if (extension_loaded('redis')) {
     echo "<p>✅ Redis extension is loaded</p>";
+
+    try {
+        $redis = new Redis();
+
+        $start = microtime(true);
+        // ใช้ persistent connection (ไม่ต้อง handshake ทุกครั้ง)
+        $redis->pconnect('127.0.0.1', 6379, 1.5);
+        // ถ้าใช้ socket:
+        // $redis->pconnect('/var/run/redis/redis-server.sock');
+
+        $ping = $redis->ping();
+        $time = round((microtime(true) - $start) * 1000, 2);
+
+        echo "<p>✅ Connected to Redis (" . $ping . ") in {$time} ms</p>";
+
+        // ลองเก็บค่าใน Redis
+        $redis->set('php_test_key', 'Hello from PHP', 10);
+        $value = $redis->get('php_test_key');
+        echo "<p>Stored value from Redis: {$value}</p>";
+    } catch (Exception $e) {
+        echo "<p>❌ Redis connection failed: " . $e->getMessage() . "</p>";
+    }
 } else {
     echo "<p>❌ Redis extension is not loaded</p>";
 }
@@ -53,6 +75,5 @@ if (!isset($_SESSION['visit_count'])) {
 }
 echo "<p>Visit count (stored in Redis): " . $_SESSION['visit_count'] . "</p>";
 
-echo "<hr><p>Server hostname: " . $_SERVER['HTTP_HOST']  . " [".gethostname() ."]</p>";
-
+echo "<hr><p>Server hostname: " . $_SERVER['HTTP_HOST']  . " [" . gethostname() . "]</p>";
 ?>
