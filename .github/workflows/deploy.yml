@@ -36,9 +36,9 @@ jobs:
             git config --global --add safe.directory /home/sujane/php8-docker
           fi
           
-          # Stop and remove existing containers
-          docker compose down || true
-          docker rm -f php8-nginx-app 2>/dev/null || true
+          # Stop and remove existing containers (including orphaned containers)
+          docker compose down --remove-orphans || true
+          docker rm -f php8-nginx-app php8-nginx php8-fpm 2>/dev/null || true
           
           # Build and start the application
           docker compose up -d --build
@@ -80,9 +80,9 @@ jobs:
             git config --global --add safe.directory /home/sujane/php8-docker
           fi
           
-          # Stop and remove existing containers
-          docker compose down || true
-          docker rm -f php8-nginx-app 2>/dev/null || true
+          # Stop and remove existing containers (including orphaned containers)
+          docker compose down --remove-orphans || true
+          docker rm -f php8-nginx-app php8-nginx php8-fpm 2>/dev/null || true
           
           # Build and start the application
           docker compose up -d --build
@@ -124,9 +124,9 @@ jobs:
             git config --global --add safe.directory /home/sujane/php8-docker
           fi
           
-          # Stop and remove existing containers
-          docker compose down || true
-          docker rm -f php8-nginx-app 2>/dev/null || true
+          # Stop and remove existing containers (including orphaned containers)
+          docker compose down --remove-orphans || true
+          docker rm -f php8-nginx-app php8-nginx php8-fpm 2>/dev/null || true
           
           # Build and start the application
           docker compose up -d --build
