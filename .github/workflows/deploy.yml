@@ -45,8 +45,8 @@ jobs:
           echo "■ Waiting for app to start..."
           sleep 10
           
-          # Test application on port 9000
-          curl -f http://localhost:9000 || (echo "■ Application test failed on VM1, checking logs..." && docker compose logs && exit 1)
+          # Test application on port 8000
+          curl -f http://localhost:8000 || (echo "■ Application test failed on VM1, checking logs..." && docker compose logs && exit 1)
           echo "■ VM1 deployment successful!"
 
   deploy-to-vm2:
@@ -89,8 +89,8 @@ jobs:
           echo "■ Waiting for app to start..."
           sleep 10
           
-          # Test application on port 9000
-          curl -f http://localhost:9000 || (echo "■ Application test failed on VM2, checking logs..." && docker compose logs && exit 1)
+          # Test application on port 8000
+          curl -f http://localhost:8000 || (echo "■ Application test failed on VM2, checking logs..." && docker compose logs && exit 1)
           echo "■ VM2 deployment successful!"
 
   deploy-to-vm3:
@@ -133,6 +133,6 @@ jobs:
           echo "■ Waiting for app to start..."
           sleep 10
           
-          # Test application on port 9000
-          curl -f http://localhost:9000 || (echo "■ Application test failed on VM3, checking logs..." && docker compose logs && exit 1)
+          # Test application on port 8000
+          curl -f http://localhost:8000 || (echo "■ Application test failed on VM3, checking logs..." && docker compose logs && exit 1)
           echo "■ VM3 deployment successful!"
