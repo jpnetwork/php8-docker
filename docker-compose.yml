@@ -3,7 +3,7 @@ services:
     build: .
     container_name: php8-nginx-app
     ports:
-      - "9000:9000"
+      - "8000:8000"
     volumes:
       - ./public:/var/www/html
     restart: unless-stopped

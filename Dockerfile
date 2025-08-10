@@ -69,7 +69,7 @@ RUN chmod -R 755 /var/www/html
 RUN mkdir -p /var/log/nginx /var/log/supervisor /run/nginx
 
 # Expose port
-EXPOSE 9000
+EXPOSE 8000
 
 # Start supervisor (which will manage nginx and php-fpm)
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
