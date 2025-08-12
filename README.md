@@ -21,7 +21,6 @@ A simple PHP 8.4 application running with Nginx on port 9000.
 2. **Access the application:**
    - Main page: http://localhost:9000
    - PHP info: http://localhost:9000/index.php
-   - Test page: http://localhost:9000/test.php
 
 3. **Stop the container:**
    ```bash
