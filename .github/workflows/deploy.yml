@@ -6,6 +6,7 @@ on:
 
 jobs:
   deploy-to-vm1:
+    if: github.repository_owner == 'jpnetwork' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -50,6 +51,7 @@ jobs:
           echo "■ VM1 deployment successful!"
 
   deploy-to-vm2:
+    if: github.repository_owner == 'jpnetwork' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -94,6 +96,7 @@ jobs:
           echo "■ VM2 deployment successful!"
 
   deploy-to-vm3:
+    if: github.repository_owner == 'jpnetwork' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
