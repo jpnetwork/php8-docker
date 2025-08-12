@@ -39,10 +39,9 @@ RUN { \
   echo "opcache.fast_shutdown=1"; \
 } > /usr/local/etc/php/conf.d/opcache.ini
 
-# Configure Redis sessions
-RUN echo "session.save_handler=redis" > /usr/local/etc/php/conf.d/redis-session.ini
-RUN echo "session.save_path=\"tcp://192.168.99.7:6379\"" >> /usr/local/etc/php/conf.d/redis-session.ini
-
+# Configure PHP to use files for session storage
+RUN echo "session.save_handler=files" > /usr/local/etc/php/conf.d/session.ini \
+    && echo "session.save_path=\"/tmp\"" >> /usr/local/etc/php/conf.d/session.ini
 # Create web directory
 RUN mkdir -p /var/www/html
 
