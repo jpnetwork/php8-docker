@@ -1,6 +1,6 @@
 # PHP 8.4 Docker with Nginx
 
-A simple PHP 8.4 application running with Nginx on port 8010.
+A simple PHP 8.4 application running with Nginx on port 8000.
 
 ## Features
 
@@ -19,7 +19,7 @@ A simple PHP 8.4 application running with Nginx on port 8010.
    ```
 
 2. **Access the application:**
-   - Main page: http://localhost:8010
+   - Main page: http://localhost:8000
 
 3. **Stop the container:**
    ```bash
@@ -42,7 +42,7 @@ php8.4-docker/
 
 ## Configuration Details
 
-- **Nginx**: Listens on port 8010
+- **Nginx**: Listens on port 8000
 - **PHP-FPM**: Runs on internal port 9001
 - **Supervisor**: Manages both Nginx and PHP-FPM processes
 - **PHP Extensions**: mysqli, pdo, pdo_mysql, opcache
